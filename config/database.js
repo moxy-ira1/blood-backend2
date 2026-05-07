@@ -18,10 +18,10 @@ module.exports = {
     logging: false
   },
   production: {
-    username: process.env.DB_USER,
-    password: process.env.DB_PASSWORD,
-    database: process.env.DB_NAME,
-    host: process.env.DB_HOST,
+    username: process.env.DB_USER || 'blood_postgress_user',
+    password: process.env.DB_PASSWORD || 'FCFGQKpBcrfqTkt0uGAG3LZbxvK1m1UL',
+    database: process.env.DB_NAME || 'blood_postgress',
+    host: process.env.DB_HOST || 'dpg-d7tj7k9kh4rs73apt39g-a.oregon-postgres.render.com',
     dialect: process.env.DB_DIALECT || 'postgres',
     logging: false,
     dialectOptions: {
