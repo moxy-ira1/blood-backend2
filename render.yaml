@@ -1,6 +1,6 @@
 services:
   - type: web
-    name: blood-backend
+    name: blood-backend2
     env: node
     plan: free
     buildCommand: 'npm install'
