@@ -1,0 +1,17 @@
+services:
+  - type: web
+    name: blood-backend
+    env: node
+    plan: free
+    buildCommand: 'npm install'
+    startCommand: 'npm run render-start'
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: DATABASE_URL
+        value: postgres://blood_postgress_user:FCFGQKpBcrfqTkt0uGAG3LZbxvK1m1UL@dpg-d7tj7k9kh4rs73apt39g-a.oregon-postgres.render.com/blood_postgress
+      - key: JWT_SECRET
+        value: blood-bank-super-secure-jwt-secret-key-for-production-2024
+      - key: JWT_EXPIRES_IN
+        value: 7d
+    autoDeploy: yes

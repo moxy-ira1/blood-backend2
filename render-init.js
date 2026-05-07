@@ -18,15 +18,14 @@ async function initDatabase() {
     const userCount = await User.count();
     
     if (userCount === 0) {
-      console.log('No users found. Running database seeder...');
+      console.log('No users found, seeding database...');
       await seedDatabase();
-      console.log('Database seeded successfully!');
+      console.log('Database seeding completed successfully!');
     } else {
-      console.log(`Database already initialized with ${userCount} users.`);
+      console.log(`${userCount} users already exist, skipping seeding.`);
     }
     
-    console.log('Database initialization completed.');
-    process.exit(0);
+    console.log('Database initialization completed successfully!');
     
   } catch (error) {
     console.error('Database initialization failed:', error);
@@ -34,10 +33,9 @@ async function initDatabase() {
   }
 }
 
-// Only run initialization in production
-if (process.env.NODE_ENV === 'production') {
+// Only run if this file is called directly
+if (require.main === module) {
   initDatabase();
-} else {
-  console.log('Skipping database initialization (not in production mode)');
-  process.exit(0);
 }
+
+module.exports = initDatabase;

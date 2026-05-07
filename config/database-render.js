@@ -15,10 +15,7 @@ module.exports = {
     logging: false
   },
   production: {
-    username: process.env.DB_USER || 'blood_postgress_user',
-    password: process.env.DB_PASSWORD || 'FCFGQKpBcrfqTkt0uGAG3LZbxvK1m1UL',
-    database: process.env.DB_NAME || 'blood_postgress',
-    host: process.env.DB_HOST || 'dpg-d7tj7k9kh4rs73apt39g-a.oregon-postgres.render.com',
+    // Use DATABASE_URL for Render PostgreSQL
     dialect: 'postgres',
     logging: false,
     dialectOptions: {

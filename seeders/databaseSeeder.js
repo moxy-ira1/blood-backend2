@@ -7,11 +7,10 @@ async function seedDatabase() {
     console.log('Starting database seeding...');
 
     // Create Owner User
-    const ownerPassword = await bcrypt.hash('owner123', 10);
     const owner = await User.create({
       id: uuidv4(),
       email: 'owner@lifbank.com',
-      password: ownerPassword,
+      password: 'owner123',
       phone: '+1234567890',
       role: 'owner',
       isActive: true
@@ -42,11 +41,10 @@ async function seedDatabase() {
     });
 
     // Create Worker User
-    const workerPassword = await bcrypt.hash('worker123', 10);
     const workerUser = await User.create({
       id: uuidv4(),
       email: 'worker@lifbank.com',
-      password: workerPassword,
+      password: 'worker123',
       phone: '+1234567891',
       role: 'worker',
       isActive: true
@@ -68,19 +66,13 @@ async function seedDatabase() {
     });
 
     // Create Donor Users
-    const donorPasswords = await Promise.all([
-      bcrypt.hash('donor123', 10),
-      bcrypt.hash('donor456', 10),
-      bcrypt.hash('donor789', 10)
-    ]);
-
     const donors = [];
     
     // Donor 1 - O+ Blood Type
     const donor1User = await User.create({
       id: uuidv4(),
       email: 'donor1@lifbank.com',
-      password: donorPasswords[0],
+      password: 'donor123',
       phone: '+1234567892',
       role: 'donor',
       isActive: true
@@ -115,7 +107,7 @@ async function seedDatabase() {
     const donor2User = await User.create({
       id: uuidv4(),
       email: 'donor2@lifbank.com',
-      password: donorPasswords[1],
+      password: 'donor456',
       phone: '+1234567893',
       role: 'donor',
       isActive: true
@@ -126,12 +118,12 @@ async function seedDatabase() {
       userId: donor2User.id,
       donorId: 'DON-2024-002',
       firstName: 'Bob',
-      lastName: 'Williams',
-      dateOfBirth: new Date('1985-08-22'),
+      lastName: 'Wilson',
+      dateOfBirth: new Date('1985-08-20'),
       gender: 'male',
       bloodType: 'A+',
       phoneNumber: '+1234567893',
-      email: 'bob.williams@email.com',
+      email: 'bob.wilson@email.com',
       address: '789 Donor Avenue',
       city: 'Abuja',
       state: 'FCT',
@@ -150,7 +142,7 @@ async function seedDatabase() {
     const donor3User = await User.create({
       id: uuidv4(),
       email: 'donor3@lifbank.com',
-      password: donorPasswords[2],
+      password: 'donor789',
       phone: '+1234567894',
       role: 'donor',
       isActive: true

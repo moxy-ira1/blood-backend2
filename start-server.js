@@ -1,9 +1,7 @@
-require('dotenv').config();
+// Set JWT secret before importing anything else
+process.env.JWT_SECRET = 'blood-bank-jwt-secret-key-for-development';
 
-// Set default JWT secret if not provided
-if (!process.env.JWT_SECRET) {
-  process.env.JWT_SECRET = 'blood-bank-jwt-secret-key-for-development';
-}
+require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const helmet = require('helmet');
@@ -14,7 +12,10 @@ const app = express();
 
 // Security middleware
 app.use(helmet());
-app.use(cors());
+app.use(cors({
+  origin: ['http://localhost:5173', 'http://localhost:5174'],
+  credentials: true
+}));
 
 // Rate limiting
 const limiter = rateLimit({
@@ -71,7 +72,7 @@ const startServer = async () => {
     await sequelize.authenticate();
     console.log('Database connection established successfully.');
     
-    await sequelize.sync({ force: true });
+    await sequelize.sync({ force: false });
     console.log('Database synchronized.');
     
     app.listen(PORT, () => {
@@ -85,5 +86,3 @@ const startServer = async () => {
 };
 
 startServer();
-
-module.exports = app;

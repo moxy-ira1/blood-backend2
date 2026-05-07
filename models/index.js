@@ -4,16 +4,25 @@ const config = require('../config/database');
 const env = process.env.NODE_ENV || 'development';
 const dbConfig = config[env];
 
-const sequelize = new Sequelize(
-  dbConfig.database,
-  dbConfig.username,
-  dbConfig.password,
-  {
-    host: dbConfig.host,
-    dialect: dbConfig.dialect,
-    logging: dbConfig.logging
-  }
-);
+// Use DATABASE_URL for production (Render), otherwise use individual config
+const sequelize = process.env.DATABASE_URL 
+  ? new Sequelize(process.env.DATABASE_URL, {
+      dialect: 'postgres',
+      logging: dbConfig.logging,
+      dialectOptions: dbConfig.dialectOptions,
+      pool: dbConfig.pool
+    })
+  : new Sequelize(
+      dbConfig.database || 'blood_bank',
+      dbConfig.username || null,
+      dbConfig.password || null,
+      {
+        host: dbConfig.host || null,
+        dialect: dbConfig.dialect,
+        logging: dbConfig.logging,
+        storage: dbConfig.storage || './database.sqlite'
+      }
+    );
 
 const User = require('./User')(sequelize, Sequelize.DataTypes);
 const BTD = require('./BTD')(sequelize, Sequelize.DataTypes);
